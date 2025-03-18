@@ -7,8 +7,8 @@ process_image_flag = True
 create_video_flag = True
 
 # Paths to the input files
-audio_file = "Teys Worldy - Morning Journey.wav"
-cover_image_file = "Morning_journey.jpg"
+audio_file = "Teys Worldy - The Hidden Pattern.wav"
+cover_image_file = "The Hidden Pattern.jpg"
 resized_image_file = "cover_resized.jpg"
 output_video_file = audio_file[:-4] + ".mp4"
 
