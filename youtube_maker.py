@@ -3,13 +3,13 @@ from moviepy.editor import *
 from PIL import Image
 
 # Flags to control which parts of the script to run
-process_image_flag = True
+process_image_flag = False
 create_video_flag = True
 
 # Paths to the input files
-audio_file = "Teys Worldy - The Hidden Pattern.wav"
-cover_image_file = "The Hidden Pattern.jpg"
-resized_image_file = "cover_resized.jpg"
+audio_file = "Teys Worldy - Quantum Connection.wav"
+cover_image_file = "IMG_0949.jpg"
+resized_image_file = "IMG_0949.jpg"
 output_video_file = audio_file[:-4] + ".mp4"
 
 
