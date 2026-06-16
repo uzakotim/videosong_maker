@@ -10,14 +10,14 @@ process_image_flag = False
 create_video_flag = True
 
 # Paths to the input files
-audio_file = "Teys Worldy - Slime.wav"
-cover_image_file = "artwork.png"
-background_image_file = "IMG_1100.png"
+audio_file = "Teys Worldy - Wylder.wav"
+cover_image_file = "IMG_0044.PNG"
+resized_image_file = "IMG_0044.PNG"
 output_video_file = audio_file[:-4] + "_short.mp4"
 
 # Audio segment (seconds). Set end_time to None to use until the end of the file.
-start_time = 59.0
-end_time = 67.0  # e.g. first minute; use None for full track from start_time
+start_time = 73.0
+end_time = 88.0  # e.g. first minute; use None for full track from start_time
 
 # Vertical mobile / Shorts frame (9:16)
 video_width = 1080
@@ -26,8 +26,7 @@ fps = 24
 
 # Cover art: longest side in pixels, centered on the frame
 cover_max_size = 1080
-# Background: same cover scaled to fill the frame, with a dark overlay (0–1)
-background_darken_opacity = 0.45
+background_color = (0, 0, 0)
 
 
 def process_image():
@@ -64,43 +63,29 @@ def _load_audio_segment():
     return audio_clip.subclip(start_time, segment_end)
 
 
-def _make_background_clip(image_path, duration):
-    bg = ImageClip(image_path, duration=duration)
-    scale = max(video_width / bg.w, video_height / bg.h)
-    bg = bg.resize(scale)
-    bg = bg.crop(
-        x_center=bg.w / 2,
-        y_center=bg.h / 2,
-        width=video_width,
-        height=video_height,
-    )
-    darken = ColorClip(
-        size=(video_width, video_height),
-        color=(0, 0, 0),
-        duration=duration,
-    ).set_opacity(background_darken_opacity)
-    return bg, darken
-
-
 def create_video():
     if not os.path.exists(audio_file):
         print(f"Audio file not found: {audio_file}")
         return False
-    if not os.path.exists(background_image_file):
-        print(f"Image file not found: {background_image_file}")
+    if not os.path.exists(resized_image_file):
+        print(f"Image file not found: {resized_image_file}")
         return False
 
     audio_clip = _load_audio_segment()
     duration = audio_clip.duration
 
-    background, darken = _make_background_clip(background_image_file, duration)
+    background = ColorClip(
+        size=(video_width, video_height),
+        color=background_color,
+        duration=duration,
+    )
 
-    cover = ImageClip(cover_image_file, duration=duration)
+    cover = ImageClip(resized_image_file, duration=duration)
     cover_side = min(cover_max_size, video_width, video_height)
     cover = cover.resize(width=cover_side).set_position("center")
 
     video = CompositeVideoClip(
-        [background, darken, cover],
+        [background, cover],
         size=(video_width, video_height),
     ).set_audio(audio_clip)
 

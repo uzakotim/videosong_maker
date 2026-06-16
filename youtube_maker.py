@@ -7,9 +7,9 @@ process_image_flag = False
 create_video_flag = True
 
 # Paths to the input files
-audio_file = "Teys Worldy - Quantum Connection.wav"
-cover_image_file = "IMG_0949.jpg"
-resized_image_file = "IMG_0949.jpg"
+audio_file = "Teys Worldy - Slime.wav"
+cover_image_file = "artwork.png"
+resized_image_file = "artwork.png"
 output_video_file = audio_file[:-4] + ".mp4"
 
 
