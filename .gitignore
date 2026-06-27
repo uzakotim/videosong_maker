@@ -10,6 +10,8 @@ __pycache__/
 # C extensions
 *.so
 
+token.json
+client_secrets.json
 # Distribution / packaging
 .Python
 build/
