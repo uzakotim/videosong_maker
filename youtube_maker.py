@@ -18,8 +18,22 @@ audio_file = "Teys Worldy - Slime.wav"
 cover_image_file = "artwork.png"
 resized_image_file = "artwork.png"
 output_video_file = audio_file[:-4] + ".mp4"
-title_text = " Slime [testing upload]"
-description_text = "Teys Worldy - Slime\n\nFollow Teys Worldy TESTING YOUTUBE"
+
+def load_metadata(filepath="description.md"):
+    if os.path.exists(filepath):
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+        if "### title" in content and "### description" in content:
+            try:
+                parts = content.split("### description")
+                title = parts[0].replace("### title", "").strip()
+                description = parts[1].strip()
+                return title, description
+            except Exception:
+                pass
+    return "[ERROR READING DESCRIPTION.MD]", "[ERROR READING DESCRIPTION.MD]"
+
+title_text, description_text = load_metadata()
 privacy_choice = "1"
 made_for_kids = False
 
@@ -156,6 +170,8 @@ if create_video_flag:
     create_video()
 
 if upload_video_flag:
+    if title_text == "[ERROR READING DESCRIPTION.MD]" or description_text == "[ERROR READING DESCRIPTION.MD]":
+        raise ValueError("Title and description could not be read from description.md. Upload aborted.")
     if os.path.exists(output_video_file):
         print("\n--- YouTube Upload Configuration ---")
         
