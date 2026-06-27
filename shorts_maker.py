@@ -18,9 +18,9 @@ create_video_flag = True
 upload_video_flag = True
 
 # Paths to the input files
-audio_file = "Teys Worldy - Slime.wav"
-cover_image_file = "artwork.png"
-background_image_file = "IMG_1100.png"
+audio_file = "Teys Worldy - Sprout.wav"
+cover_image_file = "IMG_0024.JPG"
+background_image_file = "IMG_0025.JPG"
 output_video_file = audio_file[:-4] + "_short.mp4"
 def load_metadata(filepath="description.md"):
     if os.path.exists(filepath):
@@ -51,8 +51,8 @@ TOKEN_FILE = "token.json"
 YOUTUBE_UPLOAD_SCOPE = ["https://www.googleapis.com/auth/youtube.upload"]
 
 # Audio segment (seconds). Set end_time to None to use until the end of the file.
-start_time = 59.0
-end_time = 67.0  # e.g. first minute; use None for full track from start_time
+start_time = 90.0
+end_time = 105.0  # e.g. first minute; use None for full track from start_time
 
 # Vertical mobile / Shorts frame (9:16)
 video_width = 1080
@@ -62,7 +62,7 @@ fps = 24
 # Cover art: longest side in pixels, centered on the frame
 cover_max_size = 1080
 # Background: same cover scaled to fill the frame, with a dark overlay (0–1)
-background_darken_opacity = 0.45
+background_darken_opacity = 0.2
 
 
 def process_image():

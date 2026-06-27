@@ -14,9 +14,9 @@ create_video_flag = True
 upload_video_flag = True
 
 # Paths to the input files
-audio_file = "Teys Worldy - Slime.wav"
-cover_image_file = "artwork.png"
-resized_image_file = "artwork.png"
+audio_file = "Teys Worldy - Sprout.wav"
+cover_image_file = "IMG_0024.JPG"
+background_image_file = "IMG_0025.JPG"
 output_video_file = audio_file[:-4] + ".mp4"
 
 def load_metadata(filepath="description.md"):
@@ -34,7 +34,10 @@ def load_metadata(filepath="description.md"):
     return "[ERROR READING DESCRIPTION.MD]", "[ERROR READING DESCRIPTION.MD]"
 
 title_text, description_text = load_metadata()
-privacy_choice = "1"
+# 1 private (default)
+# 2 public
+# 3 unlisted
+privacy_choice = "2"
 made_for_kids = False
 
 # OAuth 2.0 settings
@@ -50,7 +53,7 @@ def process_image():
         cover_image = Image.open(cover_image_file)
         cover_image = cover_image.resize((3000, 3000))
         # Save the resized cover image if needed
-        cover_image.save(resized_image_file)
+        cover_image.save(cover_image_file)
         print("Image processing completed.")
     else:
         print(
@@ -60,13 +63,13 @@ def process_image():
 
 
 def create_video():
-    if os.path.exists(audio_file) and os.path.exists(resized_image_file):
+    if os.path.exists(audio_file) and os.path.exists(cover_image_file):
         # Load the audio with MoviePy
         audio_clip = AudioFileClip(audio_file)
 
         # Create a video clip from the image
         image_clip = ImageClip(
-            resized_image_file, duration=audio_clip.duration)
+            cover_image_file, duration=audio_clip.duration)
 
         # Set the audio to the video clip
         video = image_clip.set_audio(audio_clip)
